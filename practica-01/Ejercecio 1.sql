@@ -40,7 +40,7 @@ select OBJECT_TYPE
       ,COUNT(1) AS CANTIDAD
 from dba_objects
 GROUP BY OBJECT_TYPE
-order by 2 desc
+order by 2 desc;
 
 ----------------------< #6 >-------------------------------
 /*Consulta SQL para conocer el tamano en MB ocupado por una
@@ -57,8 +57,8 @@ GROUP BY SEGMENT_NAME
 ORDER BY 2 DESC
 
 ----------------------< #7 >-------------------------------
-/* Consulta SQL para conocer el tamaño ocupado por una tabla 
-en específico incluyendo los índices de la misma */
+/* Consulta SQL para conocer el tamaï¿½o ocupado por una tabla 
+en especï¿½fico incluyendo los ï¿½ndices de la misma */
 --SELECT  * from DBA_oBJECTS WHERE ROWNUM <= 10 AND OBJECT_NAME = 'I_CON2';
 --SELECT  * from DBA_oBJECTS WHERE ROWNUM <= 10 AND OBJECT_NAME = 'UNDO$';
 --SELECT * FROM dba_indexes WHERE TABLE_NAME = 'APEX$_ACL'
@@ -92,7 +92,7 @@ ORDER BY 2 DESC
 ----------------------< #8 >-------------------------------
 --Consulta SQL para conocer el espacio ocupado por todos 
 --los objetos de la base de datos, muestra los objetos que 
---más ocupan primero
+--mï¿½s ocupan primero
 
 SELECT 
       SEGMENT_NAME
@@ -104,8 +104,8 @@ ORDER BY 3 DESC
 
 ----------------------< #9 >-------------------------------
 --Consulta que determine cuales son los tablespaces que 
---existen en la bd y cual es su datafile asociado así como 
---el tamaño asignado
+--existen en la bd y cual es su datafile asociado asï¿½ como 
+--el tamaï¿½o asignado
 
 select 
      tablespace_name
@@ -114,7 +114,7 @@ select
 from dba_data_files
 
 ----------------------< #10 >-------------------------------
---¿Cómo puedo extraer el DDL de un procedimiento almacenado 
+--ï¿½Cï¿½mo puedo extraer el DDL de un procedimiento almacenado 
 --desde el diccionario de datos?
 
 select 
@@ -123,5 +123,21 @@ select
     ,text AS ddl
 from dba_source
 where owner = 'SYSTEM' 
-and NAME ='ORA$_SYS_REP_AUTH'
+and NAME ='DBA_INVALID_OBJECTS'
 order by name,line
+
+
+select * from v$session;
+
+select * from V$PROCEDURE;
+
+-- Realice una consulta que muestre la siguiente informaciÃ³n 
+-- de los archivos temporales de la base de datos
+
+-- - id file, nombre del archivo, tamaÃ±o actual en GB, 
+-- tamaÃ±o mÃ¡ximo en GB, si es autoextendible, 
+-- cada cuando se incrementa y el estatus.
+
+select tablespace_name, --Esto es por Table Space
+        (bytes/1024)/1024 as MB 
+from dba_data_files
