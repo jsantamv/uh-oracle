@@ -6,6 +6,8 @@ select * from DBA_database
  
 show parameter control  --Mejor utilizar este parametro para ver mis archivos
 SELECT * FROM V$PARAMETER WHERE NAME = 'control_files'; --ojo tener cuidado con las mayusculas. 
+
+--documentacion https://docs.oracle.com/cd/B19306_01/server.102/b14231/control.htm
    
 select * from V$LOGFILE;
 select * from V$DATAFILE; 
