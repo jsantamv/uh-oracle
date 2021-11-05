@@ -23,3 +23,10 @@ ALTER SYSTEM KILL SESSION '122,1021'
 --Esta nos ayuda cuales queries se ejecutan mas
 SELECT * FROM "V$SQLAREA" WHERE sid = 2
 
+
+---- Practica 
+	SELECT SUBSTR(username, 1, 10),    sid,    serial#,status FROM "V$SESSION" WHERE username IS NOT NULL;
+	SET lines 120 --- esto es para SQL plus 
+
+
+
