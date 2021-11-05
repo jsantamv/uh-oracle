@@ -107,12 +107,19 @@ SHOW parameter control;
 SHUTDOWN IMMEDIATE;
 STARTUP NOMOUNT;
 
---para modificar el parametro control al que apunta
-alter system set control_files = 'C:\ORACLEXE\APP\ORACLE\ORADATA\XE\CONTROL.DBF','C:\oraclexe\app\oracle\oradata\XE\CTL\CONTROL01.CTL'
-
 --Hacer script de base de datos para restaurar
 ALTER DATABASE BACKUP CONTROLFILE TO TRACE AS 'C:\ORACLEXE\APP\ORACLE\BACKUP\restore.sql';
 -- o pudo ser copy paste.
 
---hacer un respaldo de la base de datos
+--hacer un respaldo de la base de datos y/o agregar uno nuevo. 
 ALTER DATABASE BACKUP CONTROLFILE TO 'C:\ORACLEXE\APP\ORACLE\BACKUP\control_backup.ctl';
+
+--para modificar el parametro control al que apunta
+SHUTDOWN IMMEDIATE;
+STARTUP NOMOUNT;
+alter system set control_files = 'C:\ORACLEXE\APP\ORACLE\ORADATA\XE\CONTROL.DBF','C:\oraclexe\app\oracle\oradata\XE\CTL\CONTROL01.CTL','C:\ORACLEXE\APP\ORACLE\BACKUP\control_backup_03.ctl' scope=spfile;
+
+
+--En caso de que de error la base de datos basta con poner otra vez el respaldo dentro de la carpeta 
+-- XE con el respectivo nombre. 
+
