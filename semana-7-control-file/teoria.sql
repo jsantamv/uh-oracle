@@ -105,19 +105,22 @@ select name from v$controlfile;
 SHOW parameter control;
 
 SHUTDOWN IMMEDIATE;
-STARTUP NOMOUNT;
+STARTUP MOUNT;
 
 --Hacer script de base de datos para restaurar
-ALTER DATABASE BACKUP CONTROLFILE TO TRACE AS 'C:\ORACLEXE\APP\ORACLE\BACKUP\restore.sql';
+ALTER DATABASE BACKUP CONTROLFILE TO TRACE AS 'C:\ORACLEXE\APP\ORACLE\BACKUP\script-Examen-2.sql';
 -- o pudo ser copy paste.
 
 --hacer un respaldo de la base de datos y/o agregar uno nuevo. 
-ALTER DATABASE BACKUP CONTROLFILE TO 'C:\ORACLEXE\APP\ORACLE\BACKUP\control_backup.ctl';
+ALTER DATABASE BACKUP CONTROLFILE TO 'C:\oraclexe\app\oracle\BACKUP\CONTROL_FILEEX-2.CTL';
 
 --para modificar el parametro control al que apunta
 SHUTDOWN IMMEDIATE;
 STARTUP NOMOUNT;
-alter system set control_files = 'C:\ORACLEXE\APP\ORACLE\ORADATA\XE\CONTROL.DBF','C:\oraclexe\app\oracle\oradata\XE\CTL\CONTROL01.CTL','C:\ORACLEXE\APP\ORACLE\BACKUP\control_backup_03.ctl' scope=spfile;
+alter system set control_files = 'C:\ORACLEXE\APP\ORACLE\ORADATA\XE\CONTROL.DBF','C:\oraclexe\app\oracle\BACKUP\CONTROL_FILEEX-2.CTL' scope=spfile;
+
+SHUTDOWN IMMEDIATE;
+STARTUP MOUNT;
 
 
 --En caso de que de error la base de datos basta con poner otra vez el respaldo dentro de la carpeta 
