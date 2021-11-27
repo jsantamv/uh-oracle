@@ -23,9 +23,9 @@ AND s.serial# = 331
 Exec dbms_system.set_sql_trace_in_session(66,331,false);
 
 --para ubicar la ruta
-select SID, SERIAL#,mACHINE,TERMINAL,PROGRAM 
-FROM SYS.V_$SESSION 
-WHERE USERNAME = 'SYSTEM';
+-- select SID, SERIAL#,mACHINE,TERMINAL,PROGRAM 
+-- FROM SYS.V_$SESSION 
+-- WHERE USERNAME = 'SYSTEM';
 
 --ubicamos la ruta
 Show parameter dump
