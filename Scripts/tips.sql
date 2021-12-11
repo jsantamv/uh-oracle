@@ -25,3 +25,6 @@ select open_mode from v$database
 
 ---Conectarse como sys en sqlplus
 SQLPLUS SYS/dba as sysdba
+
+--para mayor espacion en la pantalla
+set linesize 200
