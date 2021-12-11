@@ -2,7 +2,7 @@
 --Creacion del schema
 CREATE USER OE IDENTIFIED BY password;
 
-GRANT conect, resource, CREATE TABLE TO OE;
+GRANT connect, resource, CREATE TABLE TO OE;
 
 SELECT username, account_status FROM dba_users WHERE username = 'OE';
 ALTER USER OE IDENTIFIED BY 123;
