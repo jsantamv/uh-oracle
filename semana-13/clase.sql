@@ -24,10 +24,8 @@ CREATE INDEX IDX_ORDENES_ID ON CLUSTER c_ordenes;
 CREATE table ordenes(order_id number(10),customer_number number) CLUSTER c_ordenes  (order_id);
 CREATE table ordenes_detalle(order_id number(10), order_line varchar2(100)) cluster  c_ordenes  (order_id);
 
-
 --REVISION DE LA VISTAS
 SELECT TABLESPACE_NAME, CLUSTER_NAME,PCT_FREE FROM dba_clusters;
-
 
 -- Una tabla ORDENES quedaria con un solo cluster. No se puede crear un segundo CLUSTER
 
