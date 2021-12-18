@@ -34,9 +34,9 @@ ALTER USER OE IDENTIFIED BY password ACCOUNT UNLOCK;
 
 ------------------------------------------------------------
 --Creacion del schema
-CREATE USER OE IDENTIFIED BY password;
+CREATE USER OE IDENTIFIED BY 123;
 
-GRANT conect, resource, CREATE TABLE TO OE;
+GRANT connect, resource, CREATE TABLE TO OE;
 
 SELECT username, account_status FROM dba_users WHERE username = 'OE';
 ALTER USER OE IDENTIFIED BY 123;
