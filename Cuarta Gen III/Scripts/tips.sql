@@ -26,6 +26,8 @@ select open_mode from v$database
 ---Conectarse como sys en sqlplus
 SQLPLUS SYS/dba as sysdba
 
+SET TIME ON
+
 --para mayor espacion en la pantalla
 set linesize 200
 
@@ -34,9 +36,11 @@ ALTER USER OE IDENTIFIED BY password ACCOUNT UNLOCK;
 
 ------------------------------------------------------------
 --Creacion del schema
-CREATE USER OE IDENTIFIED BY 123;
+CREATE USER HR IDENTIFIED BY 123;
 
-GRANT connect, resource, CREATE TABLE TO OE;
+GRANT connect, resource, CREATE TABLE TO HR;
+GRANT CREATE  VIEW TO HR;
 
-SELECT username, account_status FROM dba_users WHERE username = 'OE';
+
+SELECT username, account_status FROM dba_users WHERE username = 'HR';
 ALTER USER OE IDENTIFIED BY 123;
