@@ -42,6 +42,7 @@ from dba_objects
 GROUP BY OBJECT_TYPE
 order by 2 desc;
 
+
 ----------------------< #6 >-------------------------------
 /*Consulta SQL para conocer el tamano en MB ocupado por una
 tabla en especifico sin incluir los indices de la misma. */
