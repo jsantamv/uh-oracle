@@ -1,8 +1,3 @@
-
-
-
-
-
 -- 1. Verificar que tipo de archivo está usando la bd para levantar
 -- Para saber a cual base de datos conectarme debeo de indicar el siguiente paso 
 SET ORACLE_SID=cg4
@@ -49,3 +44,4 @@ Show parameter spfile;
 
 --------------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------
+

@@ -29,7 +29,7 @@ SQLPLUS SYS/dba as sysdba
 SET TIME ON
 
 --para mayor espacion en la pantalla
-set linesize 200
+set linesize 900
 
 --desbloquear el usuario OE
 ALTER USER SCOTT IDENTIFIED BY password ACCOUNT UNLOCK;

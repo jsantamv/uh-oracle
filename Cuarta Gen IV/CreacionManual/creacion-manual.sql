@@ -38,13 +38,13 @@ USER SYS IDENTIFIED BY a123 USER SYSTEM IDENTIFIED BY a123;
 
 
 --CON SYS  SQLPLUS SYS/dba as sysdba
-START C:\ORA\product\11.2.0\dbhome_1\RDBMS\ADMIN\catalog.sql
-START C:\ORA\product\11.2.0\dbhome_1\RDBMS\ADMIN\catblock.sql
-START C:\ORA\product\11.2.0\dbhome_1\RDBMS\ADMIN\catproc.sql
-START C:\ORA\product\11.2.0\dbhome_1\RDBMS\ADMIN\catoctk.sql
-START C:\ORA\product\11.2.0\dbhome_1\RDBMS\ADMIN\owminst.plb
+START C:\ORA\product\11.2.0\dbhome_1\RDBMS\ADMIN\catalog.sql;
+START C:\ORA\product\11.2.0\dbhome_1\RDBMS\ADMIN\catblock.sql;
+START C:\ORA\product\11.2.0\dbhome_1\RDBMS\ADMIN\catproc.sql;
+START C:\ORA\product\11.2.0\dbhome_1\RDBMS\ADMIN\catoctk.sql;
+START C:\ORA\product\11.2.0\dbhome_1\RDBMS\ADMIN\owminst.plb;
 
 --CON SYSTEM SQLPLUS SYSTEM/dba as sysdba
-START C:\ORA\product\11.2.0\dbhome_1\sqlplus\admin\pupbld.sql
-START C:\ORA\product\11.2.0\dbhome_1\sqlplus\admin\help\helpbld.sql
-START C:\ORA\product\11.2.0\dbhome_1\sqlplus\admin\help\helpus.sql
+START C:\ORA\product\11.2.0\dbhome_1\sqlplus\admin\pupbld.sql;
+START C:\ORA\product\11.2.0\dbhome_1\sqlplus\admin\help\helpbld.sql;
+START C:\ORA\product\11.2.0\dbhome_1\sqlplus\admin\help\helpus.sql;
