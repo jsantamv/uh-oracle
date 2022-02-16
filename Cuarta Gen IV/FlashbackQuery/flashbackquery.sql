@@ -11,7 +11,7 @@ Grant flashback any table to SCOTT;
 
 --Configurando Oralce FlashBack Transaction QUERY
 alter database add supplemental log data;
-GRANT THE SELECT ANY TRANSACTION PRIVILEGE; --- NO SE
+GRANT SELECT ANY TRANSACTION PRIVILEGE; --- NO SE
 
 CREATE TABLE EMPLEADO (
      EMPNO  NUMBER(10)  NOT NULL
@@ -20,7 +20,7 @@ CREATE TABLE EMPLEADO (
     ,constraint PK_EMPNO Primary Key (EMPNO)
 );
 
-INSERT INTO EMPLEADO(EMPNO,EMPNAME,SALARY) VALUES (111,'MIKE',555);
+INSERT INTO SCOTT.EMPLEADO(EMPNO,EMPNAME,SALARY) VALUES (111,'MIKE',555);
 COMMIT WORK;
 
 CREATE TABLE DEPTO (
@@ -29,7 +29,7 @@ CREATE TABLE DEPTO (
     ,constraint PK_DEPTONO Primary Key (DEPTONO)
 );
 
-INSERT INTO DEPTO(DEPTONO,NAME) VALUES (10,'Accounting ');
+INSERT INTO SCOTT.DEPTO(DEPTONO,NAME) VALUES (10,'Accounting ');
 COMMIT WORK;
 
 -- 2.	Suponga que por error vamos a eliminar el empleado 111 de la tabla emp después de haber realizado una actualización:
@@ -38,9 +38,9 @@ COMMIT WORK;
     -- 2.3	Elimine el empleado 111
 -- Confirme las transacciones.
 
-update EMPLEADO set SALARY = 100 where EMPNO = 111;
-INSERT INTO DEPTO(DEPTONO,NAME) VALUES (20,'Finance ');
-delete EMPLEADO where EMPNO = 111;
+update SCOTT.EMPLEADO set SALARY = 100 where EMPNO = 111;
+INSERT INTO SCOTT.DEPTO(DEPTONO,NAME) VALUES (20,'Finance ');
+delete SCOTT.EMPLEADO where EMPNO = 111;
 COMMIT;
 
 
@@ -49,11 +49,11 @@ COMMIT;
 -- Vuelva a incrementar el salario del empleado 111 en $50
 -- Confirme las transacciones
 
-INSERT INTO EMPLEADO(EMPNO,EMPNAME,SALARY) VALUES (111,'Tom',777);
-update EMPLEADO set SALARY = 100 where EMPNO = 111;
-update EMPLEADO set SALARY = 150 where EMPNO = 111;
+INSERT INTO SCOTT.EMPLEADO(EMPNO,EMPNAME,SALARY) VALUES (111,'Tom',777);
+update SCOTT.EMPLEADO set SALARY = 100 where EMPNO = 111;
+update SCOTT.EMPLEADO set SALARY = 150 where EMPNO = 111;
 COMMIT;
-select * from EMPLEADO;
+select * from SCOTT.EMPLEADO;
 
 -- El administrador detecta un error en la aplicación y debe diagnosticar el problema. 
 -- 4.	Realice un query mediante Oracle Flashback Version Query para obtener las operaciones realizadas sobre el empleado 111
@@ -63,18 +63,18 @@ SELECT versions_starttime
      , versions_xid
      , versions_operation
      , salary
-FROM EMPLEADO versions BETWEEN timestamp minvalue AND maxvalue where EMPNO = 111 ORDER BY VERSIONS_STARTTIME;
+FROM SCOTT.EMPLEADO versions BETWEEN timestamp minvalue AND maxvalue where EMPNO = 111 ORDER BY VERSIONS_STARTTIME;
 
 SELECT versions_startscn
      , versions_starttime
      , versions_endscn
-     , versions_endtime/
+     , versions_endtime
      , versions_xid
      , versions_operation
      , EMPNAME  
-FROM   EMPLEADO 
-       VERSIONS BETWEEN TIMESTAMP TO_TIMESTAMP('2022-02-08 21:18:00', 'YYYY-MM-DD HH24:MI:SS')
-                        AND TO_TIMESTAMP('2022-02-08 21:30:00', 'YYYY-MM-DD HH24:MI:SS')
+FROM   SCOTT.EMPLEADO 
+       VERSIONS BETWEEN TIMESTAMP TO_TIMESTAMP('2022-02-15 20:13:00', 'YYYY-MM-DD HH24:MI:SS')
+                        AND TO_TIMESTAMP('2022-02-15 20:14:00', 'YYYY-MM-DD HH24:MI:SS')
 WHERE  EMPNO = 111
 order by versions_endtime desc;
 
@@ -116,4 +116,3 @@ WHERE xid IN (
   TO_TIMESTAMP('2022-02-08 21:30:00', 'YYYY-MM-DD HH24:MI:SS')
 );
 
-no tengo permisos
