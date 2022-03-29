@@ -37,7 +37,7 @@ Borrar todos Backups:
 	delete backup;
 
 Ver obsoletos:
-	report obsolete ;
+	report obsolete;
 
 Eliminar los backups obsoletos:
 	delete obsolete;
@@ -61,7 +61,7 @@ Reportes o listados:
    list backup of archivelog all;
    list backup of controlfile;
    report obsolete ;
-   report need backup ;
+   report need backup;
 
 -- Recuperaci�n:
 1. Recuperaci�n completa de la base de datos cuando se tiene el controlfile y 
