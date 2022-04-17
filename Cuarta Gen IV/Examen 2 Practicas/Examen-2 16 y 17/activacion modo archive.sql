@@ -21,20 +21,22 @@ alter database open
 alter system archive log start
 --Con esto ya tendríamos configurado el modo archivelog de una base de datos ORACLE.
 
-
+SET ORACLE_SID=DBSERV02
+select INSTANCE_NAME from v$Instance;
+select NAME from v$DATABASE;
 -- forma jefffrey
-shutdown immediate
 archive log start;
 
 alter database archivelog;
-create spfile from pfile='C:\proyectooracle\admin\DBSERV01\pfile\init.ora'
+create spfile from pfile='C:\ORACLE\admin\DBSERV02\pfile\init.ora'
 
+shutdown immediate
 --alter database open;
 startup mount
 alter database archivelog;
 show parameter spfile;
 alter system set db_recovery_file_dest_size=1G SCOPE=BOTH;
-alter system set DB_RECOVERY_FILE_DEST='C:\ora\archive_dbserv01' scope=both;
+alter system set DB_RECOVERY_FILE_DEST='C:\ORACLE\flash_recovery_area\DBSERV02\archive' scope=both;
 ALTER SYSTEM SET LOG_ARCHIVE_DEST_1 ='LOCATION=USE_DB_RECOVERY_FILE_DEST';
 
 
@@ -45,7 +47,7 @@ ALTER SYSTEM SET LOG_ARCHIVE_DEST_1 ='LOCATION=USE_DB_RECOVERY_FILE_DEST';
 
 
 
-alter system set archive_lag_target = 3600;
+alter system set archive_lag_target = 1800;
 select log_mode from v$database;
 
 --tnsnames

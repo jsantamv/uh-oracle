@@ -1,4 +1,7 @@
- 
+ -------------------------------------------------------------------------
+-					PARA RESTAURAR 	servidor PRINCIPAL A PATA            -
+--------------------------------------------------------------------------
+
 --paso 1 en el CMD
 oradim -NEW -SID DBSERV01 -STARTMODE manual -PFILE "C:\CuartaGeneracionIV\BDProyecto\DBSERV01\admin\DBSERV01\pfile\init.ora"
 SET ORACLE_SID=DBSERV01
@@ -6,8 +9,7 @@ SET ORACLE_SID=DBSERV01
 sqlplus /nolog
 conn /as sysdba
 startup nomount pfile='C:\CuartaGeneracionIV\BDProyecto\DBSERV01\admin\DBSERV01\pfile\init.ora';
-
-    
+   
 --paso 3 Creacion de la base de datos.
 CREATE DATABASE DBSERV01
 MAXINSTANCES 8
@@ -41,10 +43,23 @@ START C:\app\Administrator\product\11.2.0\dbhome_1\sqlplus\admin\pupbld.sql;
 START C:\app\Administrator\product\11.2.0\dbhome_1\sqlplus\admin\help\hlpbld.sql;
 START C:\app\Administrator\product\11.2.0\dbhome_1\sqlplus\admin\help\helpus.sql;
 
+
 -------------------------------------------------------------------------
--								PARA RESTAURAR 							-
+-------------------------------------------------------------------------
+-				PREPARAR ARCHIVOS SERVER << PRINCIPAL >>        		-
+-------------------------------------------------------------------------
 -------------------------------------------------------------------------
 
+---SQL PLUS: esto es el control file que requiere para stanby
+SHUTDOWN IMMEDIATE
+startup mount
+ALTER DATABASE CREATE STANDBY CONTROLFILE AS '/oracle/dbs/stbycf.ctl';
+
+-------------------------------------------------------------------------
+-------------------------------------------------------------------------
+-				PARA RESTAURAR 	SERVER << STANDBY >>	                -
+-------------------------------------------------------------------------
+-------------------------------------------------------------------------
 ------------------------------------< sqlplus >--------------------------
 SHUTDOWN IMMEDIATE
 startup nomount pfile='C:\CuartaGeneracionIV\BDProyecto\DBSERV01\admin\DBSERV01\pfile\init.ora';
@@ -69,3 +84,10 @@ alter DATABASE OPEN READ ONLY;
 --alter database open resetlogs;
 --alter database activate standby database;
 ----------------------------------------------------------------------------
+
+
+
+[16:32] HERNANDEZ RODRIGUEZ JEFFREY GERARDO
+    backup as copy datafile 1 format '/home/oracle/backup/%U.rman';
+​[16:33] HERNANDEZ RODRIGUEZ JEFFREY GERARDO
+    catalog datafilecopy '/home/oracle/backup/data_D-DG10G_I-3174575825_TS-SYSTEM_FNO1_1akc44pg.rman';

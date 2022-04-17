@@ -34,7 +34,9 @@ USER SYS IDENTIFIED BY 123 USER SYSTEM IDENTIFIED BY 123;
 
 --describe v$Instance;
 -- select INSTANCE_NAME from v$Instance;
--- select NAME from v$DATABASE;
+SELECT NAME,OPEN_MODE, LOG_MODE,DATABASE_ROLE from v$DATABASE;
+
+-- set l
 
 --paso 4
 --Correr los archivos C:\ORA\product\11.2.0\dbhome_1\RDBMS\ADMIN
