@@ -1,19 +1,22 @@
 -- 1. Configurar el FRA
 
       --Primero activar el modo ARCHIVELOG
-      SQLPLUS SYS/dba as sysdba
+      SQLPLUS SYS/123 as sysdba
 
       --Con esto validamos si estamos en modo archive
       archive log list;
 
 -- 2. Espacio de 500 megas.
       alter system set DB_RECOVERY_FILE_DEST_SIZE=5024m scope = both;
-      alter system set DB_RECOVERY_FILE_DEST='C:\ORA\archivelog' scope = both;
+      
+      alter system set DB_RECOVERY_FILE_DEST='C:\ora\archivelog\dbserv01' scope = both;
+      ALTER SYSTEM SET LOG_ARCHIVE_DEST_1 ='LOCATION=USE_DB_RECOVERY_FILE_DEST';
 
 -- 3 Configurar en arc cada 10 min
-      alter system set ARCHIVE_LAG_TARGET = 600;
+      alter system set ARCHIVE_LAG_TARGET = 3600;
 
 -- 4 Crear un full back UP
+      SET ORACLE_SID=DBSERV01
       rman target /
 
       backup database spfile plus archivelog;

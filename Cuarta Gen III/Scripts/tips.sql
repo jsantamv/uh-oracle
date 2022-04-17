@@ -32,7 +32,7 @@ SET TIME ON
 set linesize 900
 
 --desbloquear el usuario OE
-ALTER USER SCOTT IDENTIFIED BY password ACCOUNT UNLOCK;
+ALTER USER SCOTT IDENTIFIED BY 123 ACCOUNT UNLOCK;
 
 ------------------------------------------------------------
 --Creacion del schema
