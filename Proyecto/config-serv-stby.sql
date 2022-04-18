@@ -1,6 +1,18 @@
-\\LAPTOP-3M64PCMF\CuartaGeneracionIV\juankiss
+ -------------------------------------------------------------------------
+--					    SERVIDOR PRINCIPAL                              --
+--------------------------------------------------------------------------
+0. Crear la base de datos
+1. Modo archive
+2. create pfile from spfile
+
+3. rman 
+   RMAN> backup database plus archivelog;
+   RMAN> copy current controlfile for standby to '/u01/app/oracle/bkp/stndby_ctrl01.ctl';
+   
+4. Enviarlos al servidor de stand by. 
 
 
+--------------------------------------------------------------------------------------------------------------------
 --paso 1 en el CMD
 oradim -NEW -SID DBSERV01 -STARTMODE manual -PFILE "C:\CuartaGeneracionIV\BDProyecto\DBSERV01\admin\DBSERV01\pfile\init.ora"
 SET ORACLE_SID=DBSERV01
