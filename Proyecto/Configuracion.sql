@@ -1,4 +1,17 @@
  -------------------------------------------------------------------------
+--					    SERVIDOR PRINCIPAL                              --
+--------------------------------------------------------------------------
+0. Crear la base de datos
+1. Modo archive
+2. create pfile from spfile
+
+3. rman 
+   RMAN> backup database plus archivelog;
+   RMAN> copy current controlfile for standby to '/u01/app/oracle/bkp/stndby_ctrl01.ctl';
+   
+4. Enviarlos al servidor de stand by. 
+ 
+ -------------------------------------------------------------------------
 -					PARA RESTAURAR 	servidor PRINCIPAL A PATA            -
 --------------------------------------------------------------------------
 
@@ -31,17 +44,17 @@ USER SYS IDENTIFIED BY admin USER SYSTEM IDENTIFIED BY admin;
 
 CONN SYS as sysdba
 
-START C:\app\Administrator\product\11.2.0\dbhome_1\RDBMS\ADMIN\catalog.sql
-START C:\app\Administrator\product\11.2.0\dbhome_1\RDBMS\ADMIN\catblock.sql
-START C:\app\Administrator\product\11.2.0\dbhome_1\RDBMS\ADMIN\catproc.sql
-START C:\app\Administrator\product\11.2.0\dbhome_1\RDBMS\ADMIN\catoctk.sql
-START C:\app\Administrator\product\11.2.0\dbhome_1\RDBMS\ADMIN\owminst.plb
+START C:\ORACLE\product\11.2.0\dbhome_1\RDBMS\ADMIN\catalog.sql
+START C:\ORACLE\product\11.2.0\dbhome_1\RDBMS\ADMIN\catblock.sql
+START C:\ORACLE\product\11.2.0\dbhome_1\RDBMS\ADMIN\catproc.sql
+START C:\ORACLE\product\11.2.0\dbhome_1\RDBMS\ADMIN\catoctk.sql
+START C:\ORACLE\product\11.2.0\dbhome_1\RDBMS\ADMIN\owminst.plb
 
 conn SYSTEM/admin
 
-START C:\app\Administrator\product\11.2.0\dbhome_1\sqlplus\admin\pupbld.sql;
-START C:\app\Administrator\product\11.2.0\dbhome_1\sqlplus\admin\help\hlpbld.sql;
-START C:\app\Administrator\product\11.2.0\dbhome_1\sqlplus\admin\help\helpus.sql;
+START C:\ORACLE\product\11.2.0\dbhome_1\sqlplus\admin\pupbld.sql;
+START C:\ORACLE\product\11.2.0\dbhome_1\sqlplus\admin\help\hlpbld.sql;
+START C:\ORACLE\product\11.2.0\dbhome_1\sqlplus\admin\help\helpus.sql;
 
 
 -------------------------------------------------------------------------
@@ -49,7 +62,7 @@ START C:\app\Administrator\product\11.2.0\dbhome_1\sqlplus\admin\help\helpus.sql
 -				PREPARAR ARCHIVOS SERVER << PRINCIPAL >>        		-
 -------------------------------------------------------------------------
 -------------------------------------------------------------------------
-
+SET ORACLE_SID=DBSERV01
 ---SQL PLUS: esto es el control file que requiere para stanby
 SHUTDOWN IMMEDIATE
 startup mount
@@ -65,18 +78,19 @@ SHUTDOWN IMMEDIATE
 startup nomount pfile='C:\CuartaGeneracionIV\BDProyecto\DBSERV01\admin\DBSERV01\pfile\init.ora';
 
 ------------------------------------< rman >--------------------------
-restore controlfile from 'C:\CuartaGeneracionIV\BackUp\STBYCF2.CTL';
+restore controlfile from 'C:\Users\jsant\Downloads\STNDBY_CTRL02.CTL';
 
 ------------------------------------< sqlplus >--------------------------
 ALTER DATABASE MOUNT STANDBY DATABASE;
 
-------------------------------------< rman >--------------------------
-catalog start with 'C:\CuartaGeneracionIV\BDProyecto\DBSERV01\archive\BACKUPSET\2022_04_15\';
+------------------------------------< rman >--------------------------                    
+catalog start with 'C:\CuartaGeneracionIV\BDProyecto\DBSERV01\archive\BACKUPSET\2022_04_17\';
 
 restore database;
 ​
 recover database;
 ------------------------------------< sqlplus >--------------------------
+alter database activate standby database;
 alter DATABASE OPEN READ ONLY;
 
 ----------------------< EN CASO DE ... >------------------------------------
@@ -86,8 +100,30 @@ alter DATABASE OPEN READ ONLY;
 ----------------------------------------------------------------------------
 
 
+-------------------------------------------------------------------------
+-------------------------------------------------------------------------
+-				PARA RESTAURAR 	SERVER << PRINCIPAL >>	                -
+-------------------------------------------------------------------------
+-------------------------------------------------------------------------
 
-[16:32] HERNANDEZ RODRIGUEZ JEFFREY GERARDO
-    backup as copy datafile 1 format '/home/oracle/backup/%U.rman';
-​[16:33] HERNANDEZ RODRIGUEZ JEFFREY GERARDO
-    catalog datafilecopy '/home/oracle/backup/data_D-DG10G_I-3174575825_TS-SYSTEM_FNO1_1akc44pg.rman';
+
+--SERVER STANDBY EN RMAN
+backup as copy datafile 1 format 'C:\CuartaGeneracionIV\BK_DATAFILE\%U.rman';
+
+--SERVER PRAL RMAN
+catalog datafilecopy '/home/oracle/backup/data_D-DG10G_I-3174575825_TS-SYSTEM_FNO1_1akc44pg.rman';
+restore datafile 1
+recover datafile 1;
+
+select file_id, status, blocks, tablespace_name, user_blocks, from dba_data_files;
+
+
+
+--------------------------------------------------------------------------------------
+--- ESTO ES PARA PONER LA STANDBY TO PRINCIPAL.
+--ALTER DATABASE COMMIT TO SWITCHOVER TO PHYSICAL STANDBY;
+RECOVER MANAGED STANDBY DATABASE FINISH;
+alter database commit to switchover to primary with session shutdown;
+ALTER DATABASE OPEN;
+--ALTER DATABASE COMMIT TO SWITCHOVER TO PRIMARY;
+
