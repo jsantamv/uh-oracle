@@ -11,6 +11,7 @@
    
 4. Enviarlos al servidor de stand by. 
  
+ create spfile from pfile='C:\CuartaGeneracionIV\BDProyecto\DBSERV01\admin\DBSERV01\pfile\init.ora'
  -------------------------------------------------------------------------
 -					PARA RESTAURAR 	servidor PRINCIPAL A PATA            -
 --------------------------------------------------------------------------

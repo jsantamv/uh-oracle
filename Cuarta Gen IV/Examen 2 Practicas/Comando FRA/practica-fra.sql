@@ -7,19 +7,21 @@
       archive log list;
 
 -- 2. Espacio de 500 megas.
-      alter system set DB_RECOVERY_FILE_DEST_SIZE=5024m scope = both;
-      
+      alter system set DB_RECOVERY_FILE_DEST_SIZE=5024m scope = both;      
       alter system set DB_RECOVERY_FILE_DEST='C:\ora\archivelog\dbserv01' scope = both;
       ALTER SYSTEM SET LOG_ARCHIVE_DEST_1 ='LOCATION=USE_DB_RECOVERY_FILE_DEST';
 
--- 3 Configurar en arc cada 10 min
+-- 3 Configurar en arc el tiempo en min o segundos segun se requiera
       alter system set ARCHIVE_LAG_TARGET = 3600;
+      Create pfile from spfile;
 
 -- 4 Crear un full back UP
       SET ORACLE_SID=DBSERV01
       rman target /
 
       backup database spfile plus archivelog;
+
+      copy current controlfile for standby to '/u01/app/oracle/bkp/stndby_ctrl01.ctl';
 
 -- 5 Crear un Table Space (TE) llamadio TBS_PRUEBAS 
 -- con un Data File (DF) llamado Pruebas.dbf tamano de 10 megas
